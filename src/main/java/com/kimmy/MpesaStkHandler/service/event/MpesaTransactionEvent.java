@@ -6,7 +6,10 @@ import org.springframework.context.ApplicationEvent;
 @Getter
 public class MpesaTransactionEvent<T> extends ApplicationEvent {
 
+    private final T data;
+
     public MpesaTransactionEvent(T source) {
         super(source);
+        this.data = source;
     }
 }

@@ -8,5 +8,5 @@ import java.util.Map;
 @Data
 @Builder
 public class MpesaTransactionDao {
-    Map<String, Object> data;
+    Map<String, String> data;
 }

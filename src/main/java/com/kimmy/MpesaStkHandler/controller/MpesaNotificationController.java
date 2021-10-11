@@ -1,5 +1,6 @@
 package com.kimmy.MpesaStkHandler.controller;
 
+import com.kimmy.MpesaStkHandler.model.FailedTransaction;
 import com.kimmy.MpesaStkHandler.model.MpesaTransaction;
 import com.kimmy.MpesaStkHandler.model.MpesaTransactionDao;
 import com.kimmy.MpesaStkHandler.service.TransactionService;

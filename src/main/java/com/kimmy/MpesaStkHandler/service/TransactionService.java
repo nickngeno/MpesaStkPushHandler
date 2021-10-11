@@ -1,6 +1,7 @@
 package com.kimmy.MpesaStkHandler.service;
 
 import com.kimmy.MpesaStkHandler.model.EventDao;
+import com.kimmy.MpesaStkHandler.model.FailedTransaction;
 import com.kimmy.MpesaStkHandler.model.MpesaTransaction;
 import com.kimmy.MpesaStkHandler.model.MpesaTransactionDao;
 import com.kimmy.MpesaStkHandler.service.event.MpesaTransactionEvent;
@@ -12,9 +13,13 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 @Component
 public class TransactionService {
@@ -31,14 +36,15 @@ public class TransactionService {
         eventPublisher.publishEvent(new TransactionEvent<>(EventDao.builder().data(data).build()));
     }
 
-    public void getMpesaTransaction(Object request) {
-        Map<String, Object> mydata = new HashMap<>();
-        mydata.put("myrequest", request);
-//        HttpServletRequest httpServletRequest = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-//        mydata.put("amount", request.);
-//        mydata.put("mpesaReceiptNumber", httpServletRequest.getHeader("user-agent"));
-//        mydata.put("transactionDate", httpServletRequest.getHeader("user-agent"));
-//        mydata.put("phoneNumber", httpServletRequest.getHeader("user-agent"));
-        eventPublisher.publishEvent(new MpesaTransactionEvent<>(MpesaTransactionDao.builder().data(mydata).build()));
+    public void getMpesaTransaction(Object request) throws IOException {
+//        Map<String , String> myData = new HashMap<>();
+//        myData.put("merchantRequestID", request.getMerchantRequestID());
+//        myData.put("checkoutRequestID", request.getCheckoutRequestID());
+//        myData.put("resultCode", request.getResultCode().toString());
+//        myData.put("resultDesc", request.getResultDesc());
+//        eventPublisher.publishEvent(new MpesaTransactionEvent<>(MpesaTransactionDao.builder().data(myData).build()));
+        HttpServletRequest httpServletRequest = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+        FailedTransaction transaction = new FailedTransaction();
+        eventPublisher.publishEvent(new MpesaTransactionEvent<>(request));
     }
 }
